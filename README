@@ -1,0 +1,7 @@
+Modifiy netCDF path in make.sh
+
+Then just ./make.sh to build
+
+./thu-remap grid1 grid2 testcase algoname ... to run
+
+check THUoutput.nc
