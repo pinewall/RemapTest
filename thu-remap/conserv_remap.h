@@ -5,12 +5,13 @@
 #include "remap_vars.h"
 
 class conserv_remap_2D_operator : public Common_remap
-{	
+{
        //variables (save) in intersection
-       private:
+       //private:
+    protected:
 
 		int last_loc;                       // save location when crossing threshold
-		bool lthresh;          		// flags segments crossing threshold bndy  !also in pole_intersectionÖÐµÄintent(inout)
+		bool lthresh;          		// flags segments crossing threshold bndy  !also in pole_intersection?Ðµ?intent(inout)
 		double intrsct_lat_off;          // lat coords offset for next search
 		double intrsct_lon_off;         // lon coords offset for next search
 
@@ -84,4 +85,12 @@ class conserv_remap_2D_operator : public Common_remap
 		void init_remap(); 
 		void cal_remap(double *, double *);
 		
+};
+
+class conserv2_remap_2D_operator : public conserv_remap_2D_operator
+{
+    public:
+        conserv2_remap_2D_operator(char *, char *, char *);
+        ~conserv2_remap_2D_operator();
+        void cal_remap(double *, double *);
 };

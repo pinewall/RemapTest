@@ -40,6 +40,21 @@
 #define LATITUDE 1
 #define LATLON    2
 
+void conserv2_remap_2D_operator::cal_remap(double *data_src, double *data_dst)
+{
+       int tmp_nw = rvars->num_wts;
+       int *p,*q;  
+       p = rvars->grid2_add_map1;
+       q = rvars->grid1_add_map1;
+
+       for (int i=0; i < npts_dst; i++)
+		data_dst[i] = 0;
+       for (int i=0; i < rvars->num_links_map1; i++) {
+	   	data_dst[p[i]]+=data_src[q[i]]*wgt_values[i];
+       }
+
+       // add gradient effect
+}
 
 void conserv_remap_2D_operator::cal_remap(double *data_src, double *data_dst)
 {
@@ -96,8 +111,24 @@ conserv_remap_2D_operator::~conserv_remap_2D_operator() {
 	delete	[]link_add_dst;
 }
 
+conserv2_remap_2D_operator::~conserv2_remap_2D_operator() {
+       delete	rvars;
+	delete	[]link_add_src;
+	delete	[]link_add_dst;
+}
+
 conserv_remap_2D_operator::conserv_remap_2D_operator(char *grid1_name,  char *grid2_name,  char *alg_name) 
 : Common_remap(grid1_name, grid2_name, alg_name)
+{
+	lthresh = false;
+	luse_last = false;
+	avoid_pole_count = 0;
+	avoid_pole_offset = TINY;
+	first_call = true;
+}
+
+conserv2_remap_2D_operator::conserv2_remap_2D_operator(char *grid1_name,  char *grid2_name,  char *alg_name) 
+: conserv_remap_2D_operator(grid1_name, grid2_name, alg_name)
 {
 	lthresh = false;
 	luse_last = false;
@@ -289,7 +320,7 @@ void conserv_remap_2D_operator:: conserv_remap()
 					// prevent infinite loops if integration gets stuck near cell or threshold boundary
 					num_subseg = num_subseg + 1;
 					if (num_subseg > max_subseg) {
-						//printf("integration stalled: num_subseg exceeded limit\n Stop!!!!!\n");
+						printf("integration stalled: num_subseg exceeded limit\n Stop!!!!!\n");
 						exit(2);
 						}
 
@@ -457,7 +488,7 @@ void conserv_remap_2D_operator:: conserv_remap()
 					num_subseg = num_subseg + 1;
 
 					if (num_subseg > max_subseg) {
-						//printf("integration stalled: num_subseg exceeded limit\n Stop\n");
+						printf("integration stalled: num_subseg exceeded limit\n Stop\n");
 						exit(2);
 						}
 

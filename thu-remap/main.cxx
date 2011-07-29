@@ -123,7 +123,7 @@ int main (int argc, char **argv)
             grid_tmp = acos(-data_src_array[i]) / length;
             if (grid_tmp <= 1.0)
             {
-                data_src_array[i] = 2.0 + cos(PI * grid_tmp);
+                data_src_array[i] = 2.0 + cos(3.14159265359 * grid_tmp);
             }
             else
             {
@@ -143,7 +143,7 @@ int main (int argc, char **argv)
             grid_tmp = acos(-data_dst_array[i]) / length;
             if (grid_tmp <= 1.0)
             {
-                data_dst_array[i] = 2.0 + cos(PI * grid_tmp);
+                data_dst_array[i] = 2.0 + cos(3.14159265359 * grid_tmp);
             }
             else
             {
@@ -340,7 +340,10 @@ int main (int argc, char **argv)
     // write errors
     for (int i = 0; i < grid_dst->get_num_points(); i++)
     {
-        data_dst_error[i] = data_dst_remap[i] - data_dst_array[i];
+        if (grid_dst->get_mymask()[i])
+            data_dst_error[i] = data_dst_remap[i] - data_dst_array[i];
+        else
+            data_dst_error[i] = 0.0;
     }
     status = nc_put_var_double (ncid, nc_dsterror1_id, data_dst_error);
     status = nc_put_var_double (ncid, nc_dsterror2_id, data_dst_error);

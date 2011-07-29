@@ -115,6 +115,13 @@ void remap_operator_group::generate_operators()
 			remap_operators[count ++]->init_remap();
 		}
 		
+        else if (strcmp(NAME_CONSERV2_REMAP_2D, data_remaps_cfg[i].name_remap_alg) == 0) {
+			remap_operators[count] = new conserv2_remap_2D_operator(data_remaps_cfg[i].name_grid_src, 
+			                                                                            data_remaps_cfg[i].name_grid_dst,
+			                                                                            name_operator);                                                                            
+			remap_operators[count ++]->init_remap();
+		}
+		
         else if (strcmp(NAME_BICUBIC_REMAP_2D, data_remaps_cfg[i].name_remap_alg) == 0) {
 
 		}
@@ -122,8 +129,9 @@ void remap_operator_group::generate_operators()
         else {
             printf("Unknown Algorithm name!\n");
             printf("\t[bilinear_remap_2D]\n");
-            printf("\t[distwgt_remap_2D]\n");
+            printf("\t[dist_remap_2D]\n");
             printf("\t[conserv_remap_2D]\n");
+            printf("\t[conserv2_remap_2D]\n");
             printf("\t[...]\n");
             return;
         }

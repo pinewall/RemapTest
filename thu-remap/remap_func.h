@@ -3,12 +3,13 @@
 
 #include "remap_base.h"
 
-#define NAME_DIST_REMAP_2D		"dist_remap_2D"
+#define NAME_DIST_REMAP_2D		    "dist_remap_2D"
 #define NAME_BILINEAR_REMAP_2D		"bilinear_remap_2D"
 #define NAME_BICUBIC_REMAP_2D		"bicubic_remap_2D"
 #define NAME_SPLINE_REMAP_2D		"spline_remap_2D"
-#define NAME_POLYN_REMAP_2D		"polyn_remap_2D"
+#define NAME_POLYN_REMAP_2D		    "polyn_remap_2D"
 #define NAME_CONSERV_REMAP_2D		"conserv_remap_2D"
+#define NAME_CONSERV2_REMAP_2D		"conserv2_remap_2D"
 
 
 class remap_operator_group
