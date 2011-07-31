@@ -118,8 +118,8 @@ int main (int argc, char **argv)
 
         for (int i = 0; i < grid_src->get_num_points(); i++)
         {
-            data_src_array[i] = cos(grid_src->get_lat_coords()[i]) 
-                              * cos(grid_src->get_lon_coords()[i]);
+            data_src_array[i] = cos(grid_src->get_lat_coords()[i] * PI / 180) 
+                              * cos(grid_src->get_lon_coords()[i] * PI / 180);
             grid_tmp = acos(-data_src_array[i]) / length;
             if (grid_tmp <= 1.0)
             {
@@ -138,8 +138,8 @@ int main (int argc, char **argv)
 
         for (int i = 0; i < grid_dst->get_num_points(); i++)
         {
-            data_dst_array[i] = cos(grid_dst->get_lat_coords()[i]) 
-                              * cos(grid_dst->get_lon_coords()[i]);
+            data_dst_array[i] = cos(grid_dst->get_lat_coords()[i] * PI / 180) 
+                              * cos(grid_dst->get_lon_coords()[i] * PI / 180);
             grid_tmp = acos(-data_dst_array[i]) / length;
             if (grid_tmp <= 1.0)
             {
@@ -162,7 +162,7 @@ int main (int argc, char **argv)
         {
             if (grid_src->get_mymask()[i])
             {
-                data_src_array[i] = 2.0 + cos(grid_src->get_lat_coords()[i])* cos(grid_src->get_lat_coords()[i]) * cos(2.0 * grid_src->get_lon_coords()[i]);
+                data_src_array[i] = 2.0 + cos(grid_src->get_lat_coords()[i] * PI / 180)* cos(grid_src->get_lat_coords()[i] * PI / 180) * cos(2.0 * grid_src->get_lon_coords()[i] * PI / 180);
             }
             else
             {
@@ -174,7 +174,7 @@ int main (int argc, char **argv)
         {
             if (grid_dst->get_mymask()[i])
             {
-                data_dst_array[i] = 2.0 + cos(grid_dst->get_lat_coords()[i])* cos(grid_dst->get_lat_coords()[i]) * cos(2.0 * grid_dst->get_lon_coords()[i]);
+                data_dst_array[i] = 2.0 + cos(grid_dst->get_lat_coords()[i] * PI / 180)* cos(grid_dst->get_lat_coords()[i] * PI / 180) * cos(2.0 * grid_dst->get_lon_coords()[i] * PI / 180);
             }
             else
             {
@@ -188,7 +188,7 @@ int main (int argc, char **argv)
         {
             if (grid_src->get_mymask()[i])
             {
-                data_src_array[i] = 2.0 + pow(cos(grid_src->get_lat_coords()[i]),16) * cos(16 * grid_src->get_lon_coords()[i]);
+                data_src_array[i] = 2.0 + pow(cos(grid_src->get_lat_coords()[i] * PI / 180),16) * cos(16 * grid_src->get_lon_coords()[i] * PI / 180);
             }
             else
             {
@@ -200,7 +200,7 @@ int main (int argc, char **argv)
         {
             if (grid_dst->get_mymask()[i])
             {
-                data_dst_array[i] = 2.0 + pow(cos(grid_dst->get_lat_coords()[i]),16) * cos(16 * grid_dst->get_lon_coords()[i]);
+                data_dst_array[i] = 2.0 + pow(cos(grid_dst->get_lat_coords()[i] * PI / 180),16) * cos(16 * grid_dst->get_lon_coords()[i] * PI / 180);
             }
             else
             {
